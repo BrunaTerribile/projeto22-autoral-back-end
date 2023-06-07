@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  id          Int      @id(map: "comments_pk") @default(autoincrement())
+  userId      Int
+  postId      Int
+  description String
+  createdAt   DateTime @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  users       users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comments_fk0")
+  posts       posts    @relation(fields: [postId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comments_fk1")
+}
+
+model post_type {
+  id    Int     @id(map: "post_type_pk") @default(autoincrement())
+  type  String
+  posts posts[]
+}
+
+model posts {
+  id          Int        @id(map: "posts_pk") @default(autoincrement())
+  userId      Int
+  type        Int
+  description String
+  createdAt   DateTime   @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt   DateTime   @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  comments    comments[]
+  users       users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_fk0")
+  post_type   post_type  @relation(fields: [type], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_fk1")
+}
+
+model relationship {
+  id                                   Int   @id(map: "relationship_pk") @default(autoincrement())
+  followerId                           Int
+  followedId                           Int
+  users_relationship_followerIdTousers users @relation("relationship_followerIdTousers", fields: [followerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "relationship_fk0")
+  users_relationship_followedIdTousers users @relation("relationship_followedIdTousers", fields: [followedId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "relationship_fk1")
+}
+
+model session {
+  id        Int      @id(map: "session_pk") @default(autoincrement())
+  userId    Int
+  token     String
+  createdAt DateTime @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt DateTime @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  users     users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "session_fk0")
+}
+
+model userdata {
+  id         Int    @id(map: "userdata_pk") @default(autoincrement())
+  userId     Int
+  adress     String @db.Char(1)
+  occupation String @db.Char(1)
+  photoUrl   String @db.Char(1)
+  users      users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userdata_fk0")
+}
+
+model users {
+  id                                          Int            @id(map: "users_pk") @default(autoincrement())
+  email                                       String         @db.Char(1)
+  password                                    String         @db.Char(1)
+  username                                    String         @db.Char(1)
+  createdAt                                   DateTime       @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt                                   DateTime       @default(dbgenerated("'2023-06-07 15:25:42.901529'::timestamp without time zone")) @db.Timestamp(6)
+  comments                                    comments[]
+  posts                                       posts[]
+  relationship_relationship_followerIdTousers relationship[] @relation("relationship_followerIdTousers")
+  relationship_relationship_followedIdTousers relationship[] @relation("relationship_followedIdTousers")
+  session                                     session[]
+  userdata                                    userdata[]
+}
