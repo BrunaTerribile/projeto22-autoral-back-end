@@ -2,7 +2,7 @@
   "name": "projeto22-autoral-back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/server.ts",
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server.ts"
