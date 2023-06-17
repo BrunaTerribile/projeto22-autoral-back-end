@@ -1,15 +1,13 @@
-//import 'reflect-metadata';
-//import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
 
-import { connectDb, disconnectDB } from './config/database.ts';
-import {loadEnv} from './config/envs.ts'
+import { connectDb, disconnectDB } from './config/database.js';
+import {loadEnv} from './config/envs.js'
 
 loadEnv();
 
-import { handleApplicationErrors } from './middlewares/error-handling-middleware.ts';
-import { usersRouter } from './routes/users-router.ts';
+import { handleApplicationErrors } from './middlewares/error-handling-middleware.js';
+import { usersRouter } from './routes/users-router.js';
 
 const app = express();
 app

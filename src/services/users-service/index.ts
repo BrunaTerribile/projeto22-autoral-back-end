@@ -1,7 +1,7 @@
-import { Users } from '@prisma/client';
+import { users } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import { duplicatedEmailError } from './errors.ts';
-import userRepository from '@/repositories/users-repository/index.ts';
+import { duplicatedEmailError } from './errors.js';
+import userRepository from '../../repositories/users-repository/index.js';
 
 export async function createUser({ email, password, username }: CreateUserParams) {
   await validateUniqueEmailOrFail(email);
@@ -19,11 +19,11 @@ async function validateUniqueEmailOrFail(email: string) {
   if (userWithSameEmail) throw duplicatedEmailError();
 }
 
-export type CreateUserParams = Pick<Users, 'email' | 'password' | 'username'>;
+export type CreateUserParams = Pick<users, 'email' | 'password' | 'username'>;
 
 const userService = {
   createUser,
 };
 
-export * from './errors';
+export * from './errors.js';
 export default userService;
