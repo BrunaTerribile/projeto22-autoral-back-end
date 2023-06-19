@@ -13,9 +13,17 @@ async function getPostById(postId: number) {
     if (!post) throw notFoundError();
   
     return post;
-  }
+}
+
+async function getUserPosts(userId: number) {
+    const posts = await postsRepository.getUserPosts(userId);
+    if (!posts) throw notFoundError();
+  
+    return posts;
+}
 
 export default {
     getAllPosts,
-    getPostById
+    getPostById,
+    getUserPosts
 }

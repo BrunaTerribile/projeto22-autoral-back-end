@@ -24,3 +24,14 @@ export async function getPostById(req: AuthenticatedRequest, res: Response, next
         next(error);
       }
 }
+
+export async function getUserPosts(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const { userId } = req;
+
+    try {
+        const userposts = await postsService.getUserPosts(userId);
+        return res.status(httpStatus.OK).send(userposts);
+      } catch (error) {
+        next(error);
+      }
+}
