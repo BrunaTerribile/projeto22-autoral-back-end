@@ -29,7 +29,10 @@ async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
 }
 
 async function createSession(userId: number) {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {expiresIn: 86400});
+  const secret = process.env.JWT_SECRET;
+  if(!secret) throw new Error('JWT secret not defined');
+
+  const token = jwt.sign({ userId }, secret, {expiresIn: 86400});
   await sessionRepository.create({
     token,
     userId,
