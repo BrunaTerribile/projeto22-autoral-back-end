@@ -1,4 +1,5 @@
 import { prisma } from '@/config';
+import { PostParams } from '@/protocols';
 
 async function getAll() {
   return prisma.posts.findMany()
@@ -19,9 +20,11 @@ async function getUserPosts(userId: number) {
   })
 }
 
-async function createPost(data: any) {
+async function createPost(params: PostParams) {
   return prisma.posts.create({
-    data
+    data: {
+      ...params
+    }
   })
 }
 
@@ -31,10 +34,10 @@ async function deletePost(postId: number) {
   })
 }
 
-async function updatePost(postId: number, data: any) {
+async function updatePost(postId: number, description: string) {
   return prisma.posts.update({
     where: { id: postId },
-    data: { data }
+    data: { description }
   })
 }
 

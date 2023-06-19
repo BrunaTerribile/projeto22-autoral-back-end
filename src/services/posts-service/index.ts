@@ -1,4 +1,5 @@
 import { notFoundError } from '@/errors';
+import { PostParams } from '@/protocols';
 import postsRepository from '@/repositories/posts-repository';
 
 async function getAllPosts(userId: number) {
@@ -22,8 +23,20 @@ async function getUserPosts(userId: number) {
     return posts;
 }
 
+async function createPost(userId: number,  typeId: number, title: string, description: string) {
+    const newPost: PostParams = {
+        userId,
+        type: typeId,
+        description
+    }
+
+    const post = await postsRepository.createPost(newPost);
+    return post;
+}
+
 export default {
     getAllPosts,
     getPostById,
-    getUserPosts
+    getUserPosts,
+    createPost
 }

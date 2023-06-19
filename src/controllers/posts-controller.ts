@@ -35,3 +35,15 @@ export async function getUserPosts(req: AuthenticatedRequest, res: Response, nex
         next(error);
       }
 }
+
+export async function createPost(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const { userId } = req;
+    const { type, title, description } = req.body;
+
+    try {
+        const newPost = await postsService.createPost(userId, type, title, description);
+        return res.status(httpStatus.OK).send(newPost);
+      } catch (error) {
+        next(error);
+      }
+}
