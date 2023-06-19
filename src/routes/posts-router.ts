@@ -9,7 +9,7 @@ postsRouter
     .get('/', getAllPosts)
     .get('/:id', getPostById)
     .get('/myposts', getUserPosts)
-//.post('/myposts', createPost)
+    .post('/myposts', createPost)
 //.delete('/myposts/delete/:id', deletePost)
 //.update('/myposts/update/:id', updatePost)
 
