@@ -1,4 +1,4 @@
-import { notFoundError } from '@/errors';
+import { notFoundError, unauthorizedError } from '@/errors';
 import { PostParams } from '@/protocols';
 import postsRepository from '@/repositories/posts-repository';
 
@@ -34,9 +34,17 @@ async function createPost(userId: number,  typeId: number, title: string, descri
     return post;
 }
 
+async function deletePost(userId: number, postId: number) {
+    const post = await postsRepository.getPost(postId)
+    if(post.userId != userId) throw unauthorizedError();
+
+    await postsRepository.deletePost(postId)
+}
+
 export default {
     getAllPosts,
     getPostById,
     getUserPosts,
-    createPost
+    createPost,
+    deletePost
 }

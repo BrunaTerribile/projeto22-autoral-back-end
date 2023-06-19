@@ -1,4 +1,4 @@
-import { getAllPosts, getPostById, getUserPosts } from "@/controllers/posts-controller.js";
+import { deletePost, getAllPosts, getPostById, getUserPosts } from "@/controllers/posts-controller.js";
 import { authenticateToken } from "../middlewares/authentication-middleware.js";
 import { Router } from "express";
 
@@ -10,7 +10,7 @@ postsRouter
     .get('/:id', getPostById)
     .get('/myposts', getUserPosts)
     .post('/myposts', createPost)
-//.delete('/myposts/delete/:id', deletePost)
+    .delete('/myposts/delete/:id', deletePost)
 //.update('/myposts/update/:id', updatePost)
 
 
