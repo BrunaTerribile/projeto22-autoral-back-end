@@ -9,6 +9,7 @@ loadEnv();
 import { handleApplicationErrors } from './middlewares/error-handling-middleware.js';
 import { usersRouter } from './routes/users-router.js';
 import { authenticationRouter } from './routes/authentication-router.js';
+import { postsRouter } from './routes/posts-router.js';
 
 const app = express();
 app
@@ -17,6 +18,7 @@ app
   .get('/health', (_req, res) => res.send('OK!'))
   .use('/users', usersRouter)
   .use('/auth', authenticationRouter)
+  .use('/feed', postsRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
