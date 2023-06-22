@@ -10,6 +10,7 @@ import { handleApplicationErrors } from './middlewares/error-handling-middleware
 import { usersRouter } from './routes/users-router.js';
 import { authenticationRouter } from './routes/authentication-router.js';
 import { postsRouter } from './routes/posts-router.js';
+import { relationsRouter } from './routes/relationship-router.js';
 
 const app = express();
 app
@@ -19,6 +20,7 @@ app
   .use('/users', usersRouter)
   .use('/auth', authenticationRouter)
   .use('/feed', postsRouter)
+  .use('/my-neighbors', relationsRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
