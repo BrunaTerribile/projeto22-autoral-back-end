@@ -6,8 +6,18 @@ async function getAll(userId: number) {
   })
 }
 
+async function followNeighbor(userId: number, followedId: number){
+    return prisma.relationship.create({
+        data: {
+            followerId: userId,
+            followedId
+        }
+    })
+}
+
 const relationsRepository = {
-    getAll
+    getAll,
+    followNeighbor
 }
 
 export default relationsRepository;

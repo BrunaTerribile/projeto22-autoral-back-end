@@ -1,8 +1,8 @@
-import { getAllNeighbors } from '@/controllers/relationship-controller';
+import { followNeighbor, getAllNeighbors } from '@/controllers/relationship-controller';
 import { Router } from 'express';
 
 const relationsRouter = Router();
 
-relationsRouter.get('/', getAllNeighbors)
+relationsRouter.get('/', getAllNeighbors).post('/:followedId', followNeighbor)
 
 export { relationsRouter }
