@@ -15,7 +15,15 @@ async function followNeighbor(userId: number, followedId: number) {
     return previous;
 }
 
+async function searchNeighbor(userId: number, name: string) {
+  const neighbor = await relationsRepository.searchNeighbor(userId, name);
+  if (!neighbor) throw notFoundError();
+
+  return neighbor;
+}
+
 export default {
     getAll,
-    followNeighbor
+    followNeighbor,
+    searchNeighbor
 }

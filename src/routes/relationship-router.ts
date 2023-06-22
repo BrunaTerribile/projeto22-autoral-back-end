@@ -3,6 +3,9 @@ import { Router } from 'express';
 
 const relationsRouter = Router();
 
-relationsRouter.get('/', getAllNeighbors).post('/:followedId', followNeighbor)
+relationsRouter
+    .get('/', getAllNeighbors)
+    .get('/search', searchNeighbor)
+    .post('/follow/:followedId', followNeighbor)
 
 export { relationsRouter }

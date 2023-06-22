@@ -15,9 +15,17 @@ async function followNeighbor(userId: number, followedId: number){
     })
 }
 
+async function searchNeighbor(userId: number, name: string) {
+  return prisma.users.findMany({
+    where: { username: { contains: name } }
+  })
+}
+//add join relations table to insert follow/following
+
 const relationsRepository = {
     getAll,
-    followNeighbor
+    followNeighbor,
+    searchNeighbor
 }
 
 export default relationsRepository;
