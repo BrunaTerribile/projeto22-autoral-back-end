@@ -30,6 +30,8 @@ model Posts {
   description String
   createdAt   DateTime   @default(now()) @db.Timestamp(6)
   updatedAt   DateTime   @default(now()) @db.Timestamp(6)
+  imageUrl    String?
+  title       String     @db.VarChar(100)
   Comments    Comments[]
   Users       Users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_fk0")
   Post_type   Post_type  @relation(fields: [type], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "posts_fk1")

@@ -23,11 +23,13 @@ async function getUserPosts(userId: number) {
     return posts;
 }
 
-async function createPost(userId: number,  typeId: number, title: string, description: string) {
+async function createPost(userId: number,  typeId: number, title: string, description: string, imageUrl: string) {
     const newPost: PostParams = {
         userId,
         type: typeId,
-        description
+        title,
+        description,
+        imageUrl
     }
 
     const post = await postsRepository.createPost(newPost);
@@ -36,9 +38,16 @@ async function createPost(userId: number,  typeId: number, title: string, descri
 
 async function deletePost(userId: number, postId: number) {
     const post = await postsRepository.getPost(postId)
-    if(post.userId != userId) throw unauthorizedError();
+    //if(post.userId != userId) throw unauthorizedError();
 
     await postsRepository.deletePost(postId)
+}
+
+async function updatePost(userId: number, postId: number, title: string, description: string, imageUrl: string) {
+    const post = await postsRepository.getPost(postId)
+    //if(post.userId != userId) throw unauthorizedError();
+
+    await postsRepository.updatePost(postId, title, description, imageUrl)
 }
 
 export default {
@@ -46,5 +55,6 @@ export default {
     getPostById,
     getUserPosts,
     createPost,
-    deletePost
+    deletePost,
+    updatePost
 }

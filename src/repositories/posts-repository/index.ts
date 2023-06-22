@@ -34,10 +34,10 @@ async function deletePost(postId: number) {
   })
 }
 
-async function updatePost(postId: number, description: string) {
+async function updatePost(postId: number, title: string, description: string, imageUrl: string) {
   return prisma.posts.update({
     where: { id: postId },
-    data: { description }
+    data: { description, imageUrl, title }
   })
 }
 

@@ -38,10 +38,10 @@ export async function getUserPosts(req: AuthenticatedRequest, res: Response, nex
 
 export async function createPost(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const { userId } = req;
-  const { type, title, description } = req.body;
+  const { type, title, description, imageUrl } = req.body;
 
   try {
-    const newPost = await postsService.createPost(userId, type, title, description);
+    const newPost = await postsService.createPost(userId, type, title, description, imageUrl);
     return res.status(httpStatus.CREATED).send(newPost);
   } catch (error) {
     next(error);
@@ -54,6 +54,19 @@ export async function deletePost(req: AuthenticatedRequest, res: Response, next:
 
   try {
     const deletedPost = await postsService.deletePost(userId, Number(postId));
+    return res.sendStatus(httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function updatePost(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { userId } = req;
+  const { postId } = req.params;
+  const { title, description, imageUrl } = req.body;
+
+  try {
+    const update = await postsService.updatePost(userId, Number(postId), title, description, imageUrl);
     return res.sendStatus(httpStatus.OK);
   } catch (error) {
     next(error);
