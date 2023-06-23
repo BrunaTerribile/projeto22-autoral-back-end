@@ -13,9 +13,17 @@ async function create(data: Prisma.UsersUncheckedCreateInput) {
   });
 }
 
+async function getNeighbor(userId: number, neighborId: number) {
+  return prisma.users.findFirst({
+    where: { id: neighborId }
+  })
+}
+//join relations table to insert follow/following
+
 const userRepository = {
   findByEmail,
   create,
+  getNeighbor
 };
 
 export default userRepository;

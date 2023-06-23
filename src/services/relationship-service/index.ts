@@ -1,5 +1,6 @@
 import { conflictError, notFoundError } from '@/errors';
 import relationsRepository from '@/repositories/relationship-repository';
+import userRepository from '@/repositories/users-repository';
 
 async function getAll(userId: number) {
   const neighbors = await relationsRepository.getAll(userId);
@@ -22,8 +23,16 @@ async function searchNeighbor(userId: number, name: string) {
   return neighbor;
 }
 
+async function getNeighbor(userId: number, neighborId: number) {
+  const neighbor = await userRepository.getNeighbor(userId, neighborId);
+  if (!neighbor) throw notFoundError();
+
+  return neighbor;
+}
+
 export default {
     getAll,
     followNeighbor,
-    searchNeighbor
+    searchNeighbor,
+    getNeighbor
 }

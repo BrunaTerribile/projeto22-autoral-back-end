@@ -7,12 +7,12 @@ async function getAll(userId: number) {
 }
 
 async function followNeighbor(userId: number, followedId: number){
-    return prisma.relationship.create({
-        data: {
-            followerId: userId,
-            followedId
-        }
-    })
+  return prisma.relationship.create({
+      data: {
+          followerId: userId,
+          followedId
+      }
+  })
 }
 
 async function searchNeighbor(userId: number, name: string) {
@@ -23,9 +23,10 @@ async function searchNeighbor(userId: number, name: string) {
 //add join relations table to insert follow/following
 
 const relationsRepository = {
-    getAll,
-    followNeighbor,
-    searchNeighbor
+  getAll,
+  followNeighbor,
+  searchNeighbor,
+
 }
 
 export default relationsRepository;
