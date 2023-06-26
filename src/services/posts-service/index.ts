@@ -3,7 +3,7 @@ import { PostParams } from '../../protocols.js';
 import postsRepository from '../../repositories/posts-repository/index.js';
 
 async function getAllPosts(userId: number) {
-  const posts = await postsRepository.getAll();
+  const posts = await postsRepository.getAll(userId);
   if (!posts) throw notFoundError();
 
   return posts;

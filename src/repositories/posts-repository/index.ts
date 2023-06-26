@@ -1,10 +1,15 @@
 import { prisma } from '../../config/database.js';
 import { PostParams } from '@/protocols';
 
-async function getAll() {
-  return prisma.posts.findMany()
+async function getAll(userId: number) {
+  return prisma.$queryRaw`
+  SELECT p.*
+  FROM public."Posts" AS p
+  JOIN public."Relationship" AS r
+	  ON p."userId" = r."followedId"
+  WHERE r."followerId" = ${userId}
+  `
 }
-//add join relationship table
 
 async function getPost(postId: number) {
   return prisma.posts.findFirst({

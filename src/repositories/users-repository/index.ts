@@ -15,10 +15,14 @@ async function create(data: Prisma.UsersUncheckedCreateInput) {
 
 async function getNeighbor(userId: number, neighborId: number) {
   return prisma.users.findFirst({
-    where: { id: neighborId }
+    where: { id: neighborId },
+    include: { 
+      Relationship_Relationship_followedIdToUsers: { 
+        where: { followerId: userId}
+      }
+    }
   })
 }
-//join relations table to insert follow/following
 
 const userRepository = {
   findByEmail,
