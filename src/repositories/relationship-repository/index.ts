@@ -2,16 +2,23 @@ import { prisma } from '../../config/database.js';
 
 async function getAll(userId: number) {
   return prisma.relationship.findMany({
-    where: { followedId: userId }
+    where: { followerId: userId },
+    include: { 
+      Users_Relationship_followedIdToUsers: {
+        select: {
+          username: true
+        }
+      }
+    }
   })
 }
 
 async function followNeighbor(userId: number, followedId: number){
   return prisma.relationship.create({
-      data: {
-          followerId: userId,
-          followedId
-      }
+    data: {
+      followerId: userId,
+      followedId
+    }
   })
 }
 
