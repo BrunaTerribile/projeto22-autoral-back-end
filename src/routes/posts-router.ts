@@ -8,8 +8,8 @@ postsRouter
     .all('/*', authenticateToken)
     .get('/', getAllPosts)
     .get('/:postId', getPostById)
-    .get('/my-posts', getUserPosts)
-    .post('/my-posts', createPost)
+    .get('/my-posts/me', getUserPosts)
+    .post('/publish', createPost)
     .delete('/my-posts/delete/:postId', deletePost)
     .put('/my-posts/update/:postId', updatePost)
 
