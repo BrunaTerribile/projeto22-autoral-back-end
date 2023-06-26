@@ -7,11 +7,11 @@ const postsRouter = Router();
 postsRouter
     .all('/*', authenticateToken)
     .get('/', getAllPosts)
-    .get('/:id', getPostById)
+    .get('/:postId', getPostById)
     .get('/my-posts', getUserPosts)
     .post('/my-posts', createPost)
-    .delete('/my-posts/delete/:id', deletePost)
-    .put('/my-posts/update/:id', updatePost)
+    .delete('/my-posts/delete/:postId', deletePost)
+    .put('/my-posts/update/:postId', updatePost)
 
 
 export { postsRouter }
