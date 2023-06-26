@@ -1,10 +1,9 @@
 import { Users } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { invalidCredentialsError } from './errors.js';
 import { exclude } from '../../utils/prisma-utils.js';
 import userRepository from '../../repositories/users-repository/index.js';
-import sessionRepository from '@/repositories/session-repository/index.js';
+import sessionRepository from '../../repositories/session-repository/index.js';
 
 async function signIn(params: SignInParams): Promise<SignInResult> {
   const { email, password } = params;
@@ -23,7 +22,7 @@ async function signIn(params: SignInParams): Promise<SignInResult> {
 
 async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
   const user = await userRepository.findByEmail(email, { id: true, email: true, password: true });
-  if (!user) throw invalidCredentialsError();
+  if (!user) throw new Error('Email or password are incorrect') //invalidCredentialsError();
 
   return user;
 }
@@ -43,7 +42,7 @@ async function createSession(userId: number) {
 
 async function validatePasswordOrFail(password: string, userPassword: string) {
   const isPasswordValid = await bcrypt.compare(password, userPassword);
-  if (!isPasswordValid) throw invalidCredentialsError();
+  if (!isPasswordValid) throw new Error('Email or password are incorrect') // invalidCredentialsError();
 }
 
 export type SignInParams = Pick<Users, 'email' | 'password'>;
@@ -60,4 +59,4 @@ const authenticationService = {
 };
 
 export default authenticationService;
-export * from './errors';
+export * from './banana.js';

@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status-codes';
 import * as jwt from 'jsonwebtoken';
 
-import { unauthorizedError } from '@/errors';
-import { prisma } from '@/config';
+import { unauthorizedError } from '../errors/unauthorized-error.js';
+import { prisma } from '../config/database.js';
 
 export async function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const authHeader = req.header('Authorization');
@@ -38,7 +38,7 @@ function generateUnauthorizedResponse(res: Response) {
   res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError());
 }
 
-export type AuthenticatedRequest = Request & JWTPayload;
+export type AuthenticatedRequest = any //Request & JWTPayload;
 
 type JWTPayload = {
   userId: number;

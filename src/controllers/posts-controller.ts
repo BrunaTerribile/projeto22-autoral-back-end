@@ -1,6 +1,6 @@
 import httpStatus from 'http-status-codes';
 import postsService from '../services/posts-service/index.js'
-import { AuthenticatedRequest } from '@/middlewares/authentication-middleware.js';
+import { AuthenticatedRequest } from '../middlewares/authentication-middleware.js';
 import { NextFunction, Response } from 'express';
 
 export async function getAllPosts(req: AuthenticatedRequest, res: Response, next: NextFunction) {

@@ -1,8 +1,8 @@
 import httpStatus from 'http-status-codes';
-import { AuthenticatedRequest } from "@/middlewares/authentication-middleware";
+import { AuthenticatedRequest } from "../middlewares/authentication-middleware.js";
 import { NextFunction, Response } from "express";
-import relationshipService from '@/services/relationship-service';
-import { notFoundError } from '@/errors';
+import relationshipService from '../services/relationship-service/index.js';
+import { notFoundError } from '../errors/not-found-error.js';
 
 export async function getAllNeighbors(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const { userId } = req;

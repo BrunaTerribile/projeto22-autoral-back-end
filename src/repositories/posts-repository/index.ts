@@ -1,9 +1,10 @@
-import { prisma } from '@/config';
+import { prisma } from '../../config/database.js';
 import { PostParams } from '@/protocols';
 
 async function getAll() {
   return prisma.posts.findMany()
 }
+//add join relationship table
 
 async function getPost(postId: number) {
   return prisma.posts.findFirst({

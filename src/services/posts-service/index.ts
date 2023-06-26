@@ -1,6 +1,6 @@
-import { notFoundError, unauthorizedError } from '@/errors';
-import { PostParams } from '@/protocols';
-import postsRepository from '@/repositories/posts-repository';
+import { notFoundError, unauthorizedError } from '../../errors/index.js';
+import { PostParams } from '../../protocols.js';
+import postsRepository from '../../repositories/posts-repository/index.js';
 
 async function getAllPosts(userId: number) {
   const posts = await postsRepository.getAll();

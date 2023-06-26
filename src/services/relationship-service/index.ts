@@ -1,6 +1,6 @@
-import { conflictError, notFoundError } from '@/errors';
-import relationsRepository from '@/repositories/relationship-repository';
-import userRepository from '@/repositories/users-repository';
+import { conflictError, notFoundError } from '../../errors/index.js';
+import relationsRepository from '../../repositories/relationship-repository/index.js';
+import userRepository from '../../repositories/users-repository/index.js';
 
 async function getAll(userId: number) {
   const neighbors = await relationsRepository.getAll(userId);
