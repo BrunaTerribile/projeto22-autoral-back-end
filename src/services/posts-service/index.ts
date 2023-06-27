@@ -38,14 +38,18 @@ async function createPost(userId: number,  typeId: number, title: string, descri
 
 async function deletePost(userId: number, postId: number) {
     const post = await postsRepository.getPost(postId)
-    //if(post.userId != userId) throw unauthorizedError();
+    if(post != null) {
+        if(post.userId != userId) throw unauthorizedError();
+    }
 
     await postsRepository.deletePost(postId)
 }
 
 async function updatePost(userId: number, postId: number, title: string, description: string, imageUrl: string) {
     const post = await postsRepository.getPost(postId)
-    //if(post.userId != userId) throw unauthorizedError();
+    if(post != null) {
+        if(post.userId != userId) throw unauthorizedError();
+    }
 
     await postsRepository.updatePost(postId, title, description, imageUrl)
 }

@@ -44,7 +44,6 @@ export async function getNeighborData(req: AuthenticatedRequest, res: Response, 
 export async function followNeighbor(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const { userId } = req;
   const { followedId } = req.params;
-  console.log(userId, followedId)
 
   try {
     const previous = await relationshipService.followNeighbor(userId, Number(followedId));
