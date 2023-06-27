@@ -19,7 +19,8 @@ async function getNeighbor(userId: number, neighborId: number) {
     include: { 
       Relationship_Relationship_followedIdToUsers: { 
         where: { followerId: userId}
-      }
+      },
+      Posts: true
     }
   })
 }
